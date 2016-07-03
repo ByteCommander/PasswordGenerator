@@ -4,7 +4,9 @@ Simple but flexible password generator.
 
 ---
 
-####Features:
+###Features:
+
+#####Password generation:
 
 - It allows you to specify the character set:
   - by enabling/disabling character classes:
@@ -18,3 +20,104 @@ Simple but flexible password generator.
 - It allows you to specify any desired length of the password.
 - It allows you to limit the maximum allowed number of occurrences of the same character, but still takes care that the password length can be reached.
 
+#####Usage
+
+- ######Interactive mode:
+
+    Run the script without any arguments and you get to the interactive mode which looks like this example:
+
+    ```
+    $ ./pwgen.py
+    ***** Password Generator - © 2016 ByteCommander *****
+
+    The default character set to generate passwords is this (not including the arrows):
+    → !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~←
+    Do you want to change the character set? (y/N) y
+    Do you want to allow uppercase letters 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'? (Y/n) y
+    Do you want to allow lowercase letters 'abcdefghijklmnopqrstuvwxyz'? (Y/n) y
+    Do you want to allow digits '0123456789'? (Y/n) y
+    Do you want to allow punctuation '!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~'? (Y/n) n
+    Do you want to allow space ' '? (Y/n) n
+    Please enter additional characters you want to allow (if any): -_
+    Please enter characters you want to blacklist (if any): Xx0
+    The default password length is 12 characters.
+    Enter your desired length or leave it blank to use the default: 20
+    By default, there is no limit how often a character may appear in the password.
+    Enter your desired maximum duplicate character limit or leave it blank to use the default.
+    A value of 0 means no limit: 1
+    And your new password is:
+    +----------------------+
+    | jJ-USofDig7m3eO2vREd |
+    +----------------------+
+    Generate another password with the same settings? (Y/n)
+    And your new password is:
+    +----------------------+
+    | VZCbKuQFIGHjqSBdgN9M |
+    +----------------------+
+    Generate another password with the same settings? (Y/n) n
+    Thank you for using this password generator. Have a nice day!
+    ```
+
+- ######Command-line mode:
+
+    Run the script with the command-line arguments described in its help (type `pwgen.py --help` or `pwgen.py -h` or see the block below) and you use it in command-line mode. This is useful to embed this tool into your own scripts, create your personal shortcuts for it or quickly launch it with a specific configuration.
+
+    Help screen:
+
+    ```
+    $ ./pwgen.py -h
+    usage: pwgen.py [-h] [-n AMOUNT] [-m LIMIT] [-q] [-u] [-l] [-d] [-p] [-s]
+                    [-a ADDITIONAL] [-b BLACKLIST]
+                    length
+
+    Highly customizable random password generator
+
+    positional arguments:
+      length                length of the password to generate
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -n AMOUNT, --amount AMOUNT
+                            how many passwords to create
+      -m LIMIT, --max-duplicate-chars LIMIT
+                            limits how often the same character may occur in a
+                            password at most
+      -q, --quiet           print only one password per line, nothing else
+
+    Character set specification:
+      -u, --uppercase       include uppercase letters A-Z into the available
+                            character set
+      -l, --lowercase       include lowercase letters a-z into the available
+                            character set
+      -d, --digits          include digits 0-9 into the available character set
+      -p, --punctuation     include punctuation into the available character set
+      -s, --space           include the standard space into the available
+                            character set
+      -a ADDITIONAL, --additional ADDITIONAL
+                            additional characters to include into the available
+                            character set
+      -b BLACKLIST, --blacklist BLACKLIST
+                            characters to exclude from the available character set
+
+    Run it without any arguments for interactive mode.
+    ```
+
+    Example run:
+
+    ```
+    $ ./pwgen.py 10 -uld -a'-_' -n6
+    ***** Password Generator - © 2016 ByteCommander *****
+
+    Using this character set (excluding the arrows):
+    →-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz←
+    There are no duplicate character limits.
+
+    Generating 6 passwords of length 10:
+
+    n0j1MWlig5
+    KcrVnGIt34
+    jTmDSRz9Pj
+    MNYKEwcHcf
+    Dqp_uRTEya
+    5Zw1uA9NtB
+    ```
