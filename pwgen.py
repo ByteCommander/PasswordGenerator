@@ -205,7 +205,7 @@ def generate_password(charset, length, max_duplicate_chars):
     my_charset = charset.copy()
     password = ""
     while len(password) < length:
-        password += random.choice(list(my_charset))
+        password += random.SystemRandom().choice(list(my_charset))
         if max_duplicate_chars:
             for c in set(password):
                 if password.count(c) >= max_duplicate_chars:
