@@ -6,6 +6,9 @@ import random
 import math
 import argparse
 
+def esc():
+    print('\n')
+esc()
 
 def main():
     args = parse_args()
@@ -15,30 +18,28 @@ def main():
     else:
         automatic(args)
 
-
 def automatic(args):
     charset = make_charset(args.use_upper, args.use_lower, args.use_digits, args.use_punctuation, args.use_space,
                            args.additional, args.blacklist)
 
     if not args.quiet:
-        print("***** Password Generator - © 2016 ByteCommander *****")
-        print()
+        print("***** Password Generator - © 2016-2020 ByteCommander *****")
+        esc()
         print("Using this character set (excluding the arrows):")
         print("→{}←".format("".join(sorted(charset))))
         print("There may be at most {} occurrences of the same character per password.".format(args.max_dupe)
               if args.max_dupe > 0 else "There are no duplicate character limits.")
-        print()
+        esc()
         print("Generating {} password{} of length {}:".format(args.amount, "s" if args.amount > 1 else "", args.length))
-        print()
+        esc()
 
     for _ in range(args.amount):
         password = generate_password(charset, args.length, args.max_dupe)
         print(password)
 
-
 def interactive():
     print("***** Password Generator - © 2016 ByteCommander *****")
-    print()
+    esc()
 
     charset = ask_charset(True, True, True, True, True, "", "")
     length = ask_length(12)
@@ -56,7 +57,6 @@ def interactive():
             break
 
     print("Thank you for using this password generator. Have a nice day!")
-
 
 def parse_args():
     if len(sys.argv) <= 1:
@@ -99,7 +99,6 @@ def parse_args():
         parser.error("You must enable at least one character class or add custom characters!")
     return args
 
-
 def ask_yn(message, default):
     if not isinstance(message, str) or not isinstance(default, bool):
         raise TypeError
@@ -113,7 +112,6 @@ def ask_yn(message, default):
             return answer == "y"
         print("Sorry, please do only enter [y] or [n] or leave it blank to accept the default. Try again!")
 
-
 def make_charset(use_upper, use_lower, use_digits, use_punctuation, use_space, additional, blacklist):
     if not all(isinstance(x, bool) for x in [use_upper, use_lower, use_digits, use_punctuation, use_space]) \
             or not all(isinstance(x, str) for x in [additional, blacklist]):
@@ -126,7 +124,6 @@ def make_charset(use_upper, use_lower, use_digits, use_punctuation, use_space, a
                use_space * " " +
                additional) \
         .difference(set(blacklist))
-
 
 def ask_charset(default_upper, default_lower, default_digits, default_punctuation, default_space,
                 default_additional, default_blacklist):
@@ -169,7 +166,6 @@ def ask_length(default_length):
         else:
             return default_length
 
-
 def ask_max_duplicate_chars(default_mdc, charset_len, password_len):
     if not isinstance(default_mdc, int):
         raise TypeError
@@ -197,7 +193,6 @@ def ask_max_duplicate_chars(default_mdc, charset_len, password_len):
         else:
             return default_mdc
 
-
 def generate_password(charset, length, max_duplicate_chars):
     if not isinstance(charset, set) or not isinstance(length, int) or not isinstance(max_duplicate_chars, int):
         raise TypeError
@@ -212,6 +207,6 @@ def generate_password(charset, length, max_duplicate_chars):
                     my_charset.discard(c)
     return password
 
-
 if __name__ == "__main__":
     main()
+
